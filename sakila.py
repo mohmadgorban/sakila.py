@@ -19,4 +19,7 @@ with engine.connect() as connection:
     inventory_df = pd.read_sql_table('inventory', connection)
     rental_df = pd.read_sql_table('rental', connection)
 
-print(rental_df.head(3))
+#analysa
+#  1. Are there any duplicates in actor data? If so, drop them from the data.
+
+actor_df = actor_df.drop_duplicates()
