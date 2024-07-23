@@ -28,10 +28,10 @@ actor_df = actor_df.drop_duplicates()
 
 # 2. Which categories have most films?
 
-films = film_df.merge(film_category_df, how='left', on='film_id')
-films = films.merge(category_df, how='left', on='category_id')
+# films = film_df.merge(film_category_df, how='left', on='film_id')
+# films = films.merge(category_df, how='left', on='category_id')
 
-films_group_by_category = films.groupby(['category_id','name']).agg(count_rows = ('film_id' , 'count')).reset_index()
+# films_group_by_category = films.groupby(['category_id','name']).agg(count_rows = ('film_id' , 'count')).reset_index()
 
 
 # films_group_by_category.set_index('name', inplace=True)
@@ -48,8 +48,8 @@ films_group_by_category = films.groupby(['category_id','name']).agg(count_rows =
 # plt.show()
 
 # 3. Who are the top 5 actors with most movies?
-actor = film_df.merge(film_actor_df, how='left', on='film_id')
-actor = actor.merge(actor_df, how='left', on='actor_id')
+# actor = film_df.merge(film_actor_df, how='left', on='film_id')
+# actor = actor.merge(actor_df, how='left', on='actor_id')
 
 # films_group_by_actor = actor.groupby('actor_id').agg(count_rows = ('film_id' , 'count')).reset_index()
 
@@ -71,5 +71,23 @@ actor = actor.merge(actor_df, how='left', on='actor_id')
 
 # 4. Get a sorted list of movies based on number of actors.
 
-actor_in_film = actor.groupby('film_id').agg(count_rows = ('actor_id' , 'count')).reset_index()
-print(actor_in_film.head)
+# actor_in_film = actor.groupby('film_id').agg(count_rows = ('actor_id' , 'count')).reset_index()
+# print(actor_in_film.head)
+
+# 5. What is the monthly trend of total sales? (by payment date)
+
+payment_df['month'] = payment_df['payment_date'].dt.month_name()
+total_sales = payment_df.groupby('month').agg(count_rows = ('payment_id' , 'count')).reset_index()
+
+total_sales.set_index('month', inplace=True)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='month', y='count_rows', data=total_sales, palette='viridis')
+
+plt.xlabel('month')
+plt.ylabel('Count')
+plt.title('monthly trend of total sales')
+
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
