@@ -51,20 +51,25 @@ films_group_by_category = films.groupby(['category_id','name']).agg(count_rows =
 actor = film_df.merge(film_actor_df, how='left', on='film_id')
 actor = actor.merge(actor_df, how='left', on='actor_id')
 
-films_group_by_actor = actor.groupby('actor_id').agg(count_rows = ('film_id' , 'count')).reset_index()
+# films_group_by_actor = actor.groupby('actor_id').agg(count_rows = ('film_id' , 'count')).reset_index()
 
-films_group_by_actor_5 =films_group_by_actor.sort_values(by='count_rows', ascending=False).head(5)
-print(films_group_by_actor_5)
+# films_group_by_actor_5 =films_group_by_actor.sort_values(by='count_rows', ascending=False).head(5)
+# print(films_group_by_actor_5)
 
-films_group_by_actor_5.set_index('actor_id', inplace=True)
+# films_group_by_actor_5.set_index('actor_id', inplace=True)
 
-plt.figure(figsize=(10, 6))
-sns.barplot(x='actor_id', y='count_rows', data=films_group_by_actor_5, palette='viridis')
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x='actor_id', y='count_rows', data=films_group_by_actor_5, palette='viridis')
 
-plt.xlabel('actor_id')
-plt.ylabel('Count')
-plt.title('Count of Rows by film for actor')
+# plt.xlabel('actor_id')
+# plt.ylabel('Count')
+# plt.title('Count of Rows by film for actor')
 
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
+
+# 4. Get a sorted list of movies based on number of actors.
+
+actor_in_film = actor.groupby('film_id').agg(count_rows = ('actor_id' , 'count')).reset_index()
+print(actor_in_film.head)
