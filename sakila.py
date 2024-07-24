@@ -76,18 +76,18 @@ actor_df = actor_df.drop_duplicates()
 
 # 5. What is the monthly trend of total sales? (by payment date)
 
-payment_df['month'] = payment_df['payment_date'].dt.month_name()
-total_sales = payment_df.groupby('month').agg(count_rows = ('payment_id' , 'count')).reset_index()
+# payment_df['month'] = payment_df['payment_date'].dt.month_name()
+# total_sales = payment_df.groupby('month').agg(count_rows = ('payment_id' , 'count')).reset_index()
 
-total_sales.set_index('month', inplace=True)
+# total_sales.set_index('month', inplace=True)
 
-plt.figure(figsize=(10, 6))
-sns.barplot(x='month', y='count_rows', data=total_sales, palette='viridis')
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x='month', y='count_rows', data=total_sales, palette='viridis')
 
-plt.xlabel('month')
-plt.ylabel('Count')
-plt.title('monthly trend of total sales')
+# plt.xlabel('month')
+# plt.ylabel('Count')
+# plt.title('month trend of total sales')
 
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
