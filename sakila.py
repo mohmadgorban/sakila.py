@@ -114,9 +114,16 @@ actor_df = actor_df.drop_duplicates()
 
 # 7. Are there any movies that are not in the inventory? If so, how many?
 
-inventory_film = film_df.merge(inventory_df, how='left', on='film_id')
-inventory_film = inventory_film.groupby('film_id').agg(count_rows = ('inventory_id' , 'count')).reset_index()
+# inventory_film = film_df.merge(inventory_df, how='left', on='film_id')
+# inventory_film = inventory_film.groupby('film_id').agg(count_rows = ('inventory_id' , 'count')).reset_index()
 
-is_null_a = inventory_film['count_rows'].isna()
-null_counts = is_null_a.sum()
-print(null_counts)
+# is_null_a =inventory_film.dropna(subset=['count_rows'])
+# print(is_null_a)
+
+# 8. How many customers have not returned more than 1 DVD?
+
+rental_df['new_column'] = rental_df['return_date'].apply(lambda x: 0 if pd.notna(x) else 1)
+rental_not_return = rental_df.groupby('customer_id').agg(count_rows = ('new_column' , 'sum')).reset_index()
+count_greater_than_one = (rental_not_return['count_rows'] > 1).sum()
+print(count_greater_than_one)
+
