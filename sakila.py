@@ -83,6 +83,7 @@ actor_df = actor_df.drop_duplicates()
 
 # plt.figure(figsize=(10, 6))
 # sns.barplot(x='month', y='count_rows', data=total_sales, palette='viridis')
+# sns.lineplot(x='month', y='count_rows', data=total_sales, color='red', marker='o')
 
 # plt.xlabel('month')
 # plt.ylabel('Count')
@@ -91,3 +92,22 @@ actor_df = actor_df.drop_duplicates()
 # plt.xticks(rotation=45)
 # plt.tight_layout()
 # plt.show()
+
+# 6. Is store 1 doing better than store 2?
+
+rental = rental_df.merge(inventory_df, how='left', on='inventory_id')
+
+rental_store = rental.groupby('store_id').agg(count_rows = ('rental_id' , 'count')).reset_index()
+
+rental_store.set_index('store_id', inplace=True)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='store_id', y='count_rows', data=rental_store, palette='viridis')
+
+plt.xlabel('store')
+plt.ylabel('Count')
+plt.title('Count of rental in store')
+
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
