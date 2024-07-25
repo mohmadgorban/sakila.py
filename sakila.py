@@ -95,19 +95,28 @@ actor_df = actor_df.drop_duplicates()
 
 # 6. Is store 1 doing better than store 2?
 
-rental = rental_df.merge(inventory_df, how='left', on='inventory_id')
+# rental = rental_df.merge(inventory_df, how='left', on='inventory_id')
 
-rental_store = rental.groupby('store_id').agg(count_rows = ('rental_id' , 'count')).reset_index()
+# rental_store = rental.groupby('store_id').agg(count_rows = ('rental_id' , 'count')).reset_index()
 
-rental_store.set_index('store_id', inplace=True)
+# rental_store.set_index('store_id', inplace=True)
 
-plt.figure(figsize=(10, 6))
-sns.barplot(x='store_id', y='count_rows', data=rental_store, palette='viridis')
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x='store_id', y='count_rows', data=rental_store, palette='viridis')
 
-plt.xlabel('store')
-plt.ylabel('Count')
-plt.title('Count of rental in store')
+# plt.xlabel('store')
+# plt.ylabel('Count')
+# plt.title('Count of rental in store')
 
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
+
+# 7. Are there any movies that are not in the inventory? If so, how many?
+
+inventory_film = film_df.merge(inventory_df, how='left', on='film_id')
+inventory_film = inventory_film.groupby('film_id').agg(count_rows = ('inventory_id' , 'count')).reset_index()
+
+is_null_a = inventory_film['count_rows'].isna()
+null_counts = is_null_a.sum()
+print(null_counts)
