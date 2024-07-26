@@ -127,3 +127,13 @@ actor_df = actor_df.drop_duplicates()
 # print(count_greater_than_one)
 
 # 9. Get the number of times each movie which is available for rent (i.e., can be found in the inventory) has been rented and get its total revenue.
+
+film_df = film_df.merge(inventory_df, how='left', on='film_id')
+film_df = film_df.merge(rental_df, how='left', on='inventory_id')
+film_df = film_df.merge(payment_df, how='left', on='rental_id')
+
+summary = film_df.groupby(['title','rental_rate']).agg({'rental_id': 'count', 'amount': 'sum'})
+summary = summary.reset_index()
+summary.rename(columns={'rental_id': 'total_rentals', 'amount': 'total_amount'}, inplace=True)
+print(summary.head())
+
