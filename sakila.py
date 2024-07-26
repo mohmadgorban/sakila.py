@@ -156,3 +156,28 @@ actor_df = actor_df.drop_duplicates()
 # sub_data['shelf_days'] = (sub_data['rental_date'] - sub_data['previous_rental']).dt.days
 # total_data = sub_data.groupby(['title'])['shelf_days'].sum()
 # print(total_data.head())
+
+
+# 12. Are movies usually returned late, early, or on time?
+
+# film_df = film_df.merge(inventory_df, on= 'film_id')
+# film_df = film_df.merge(rental_df, on='inventory_id')
+# film_df['rented_days'] = (film_df['return_date'] - film_df['rental_date']).dt.days
+# film_df['status'] = 'Not Returned'
+# film_df.loc[(film_df['rented_days'] == film_df['rental_duration']),'status'] = 'On Time'
+# film_df.loc[(film_df['rented_days'] < film_df['rental_duration']),'status'] = 'Early'
+# film_df.loc[(film_df['rented_days'] > film_df['rental_duration']),'status'] = 'Late'
+# print(film_df['status'].head())
+# summary = film_df.groupby('status')['title'].count().reset_index()
+# summary.set_index('status', inplace=True)
+
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x='status', y='title', data=summary, palette='viridis')
+
+# plt.xlabel('status')
+# plt.ylabel('title')
+# plt.title('status movies usually returned')
+
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
