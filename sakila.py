@@ -146,3 +146,13 @@ actor_df = actor_df.drop_duplicates()
 # category_df['rental_month'] = category_df['rental_date'].dt.to_period('M')
 # rental_count_total_revenue = category_df.groupby(['name','rental_month']).agg(rental_count = ('rental_id' , 'count'),total_revenue = ('amount' , 'sum')).reset_index()
 # print(rental_count_total_revenue.head())
+
+# 11. For how long each movie have waited in the shelf? (total and average number of days between rentals)
+
+# rental_df = rental_df.merge(inventory_df, on='inventory_id')
+# rental_df = rental_df.merge(film_df, on='film_id')
+# sub_data = rental_df[['title','inventory_id', 'rental_date', 'return_date','rental_id']].sort_values(by='rental_date')
+# sub_data['previous_rental'] = sub_data.groupby(['title','inventory_id'])['return_date'].shift(1)
+# sub_data['shelf_days'] = (sub_data['rental_date'] - sub_data['previous_rental']).dt.days
+# total_data = sub_data.groupby(['title'])['shelf_days'].sum()
+# print(total_data.head())
