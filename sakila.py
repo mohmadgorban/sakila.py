@@ -128,12 +128,21 @@ actor_df = actor_df.drop_duplicates()
 
 # 9. Get the number of times each movie which is available for rent (i.e., can be found in the inventory) has been rented and get its total revenue.
 
-film_df = film_df.merge(inventory_df, how='left', on='film_id')
-film_df = film_df.merge(rental_df, how='left', on='inventory_id')
-film_df = film_df.merge(payment_df, how='left', on='rental_id')
+# film_df = film_df.merge(inventory_df, how='left', on='film_id')
+# film_df = film_df.merge(rental_df, how='left', on='inventory_id')
+# film_df = film_df.merge(payment_df, how='left', on='rental_id')
 
-summary = film_df.groupby(['title','rental_rate']).agg({'rental_id': 'count', 'amount': 'sum'})
-summary = summary.reset_index()
-summary.rename(columns={'rental_id': 'total_rentals', 'amount': 'total_amount'}, inplace=True)
-print(summary.head())
+# summary = film_df.groupby(['title','rental_rate']).agg({'rental_id': 'count', 'amount': 'sum'})
+# summary = summary.reset_index()
+# summary.rename(columns={'rental_id': 'total_rentals', 'amount': 'total_amount'}, inplace=True)
+# print(summary.head())
 
+# 10. Get rental count and total revenue of movies by genre and rental month.
+
+# category_df = category_df.merge(film_category_df, how='inner', on='category_id')
+# category_df = category_df.merge(inventory_df, how='inner',on='film_id')
+# category_df = category_df.merge(rental_df, how='inner',on='inventory_id', suffixes=('_category', '_rental'))
+# category_df = category_df.merge(payment_df, on='rental_id')
+# category_df['rental_month'] = category_df['rental_date'].dt.to_period('M')
+# rental_count_total_revenue = category_df.groupby(['name','rental_month']).agg(rental_count = ('rental_id' , 'count'),total_revenue = ('amount' , 'sum')).reset_index()
+# print(rental_count_total_revenue.head())
