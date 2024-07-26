@@ -181,3 +181,15 @@ actor_df = actor_df.drop_duplicates()
 # plt.xticks(rotation=45)
 # plt.tight_layout()
 # plt.show()
+
+# 13. In each category, which actor is the most popular among customers?
+
+# actor_df = actor_df.merge(film_actor_df,on='actor_id')
+# actor_df = actor_df.merge(film_category_df,on = 'film_id')
+# actor_df = actor_df.merge(category_df,on='category_id' ,suffixes=('_actor', '_category'))
+# actor_df = actor_df.merge(inventory_df, on='film_id')
+# actor_df = actor_df.merge(rental_df, on='inventory_id',suffixes=('_inventory', '_rental'))
+# actor_df = actor_df.merge(payment_df, on='rental_id')
+
+# most_popular = actor_df.groupby(['name' ,'first_name' ,'last_name']).agg(count_rows = ('actor_id' , 'count')).reset_index()
+# print(most_popular.iloc[most_popular.groupby(['name'])['count_rows'].idxmax()])
